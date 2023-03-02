@@ -1,0 +1,5 @@
+/vendor
+/example.php
+/composer.lock
+/notify.php
+/notify.log
