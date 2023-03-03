@@ -16,7 +16,7 @@ $callback = new Callback($client);
  *
  * !! WARNING !!
  * Only enable it while debugging.
- * Leaving it enabled can lead to security compromise
+ * Leaving it enabled can lead to security issue
  */
 $callback->enableDebug();
 
