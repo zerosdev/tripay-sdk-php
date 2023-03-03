@@ -54,6 +54,15 @@ class Callback
         $this->parsedJson = json_decode($this->json);
     }
 
+    /**
+     * Enable debugging
+     *
+     * !! WARNING !!
+     * Only enable it while debugging.
+     * Leaving it enabled can lead to security vulnerabilities
+     *
+     * @return self
+     */
     public function enableDebug(): self
     {
         $this->debug = true;
