@@ -9,4 +9,8 @@ class Constant
 
     public const MODE_DEVELOPMENT = 'development';
     public const MODE_PRODUCTION = 'production';
+
+    public const LEVEL_LOW = 0;
+    public const LEVEL_MEDIUM = 1;
+    public const LEVEL_HIGH = 2;
 }

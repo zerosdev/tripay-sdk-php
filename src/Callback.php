@@ -5,6 +5,7 @@ namespace ZerosDev\TriPay;
 use Exception;
 use UnexpectedValueException;
 use ZerosDev\TriPay\Exception\SignatureException;
+use ZerosDev\TriPay\Support\Constant;
 
 class Callback
 {
@@ -30,12 +31,19 @@ class Callback
     protected ?object $parsedJson;
 
     /**
+     * Enable/disable debug mode
+     *
+     * @var boolean
+     */
+    protected bool $debug = false;
+
+    /**
      * Callback instance
      *
      * @param Client $client
      * @param bool $verifyOnLoad
      */
-    public function __construct(Client $client, bool $verifyOnLoad = true)
+    public function __construct(Client $client)
     {
         if (!function_exists('file_get_contents')) {
             throw new Exception('`file_get_contents` function is disabled on your system. Please contact your hosting provider');
@@ -44,10 +52,12 @@ class Callback
         $this->client = $client;
         $this->json = (string) file_get_contents("php://input");
         $this->parsedJson = json_decode($this->json);
+    }
 
-        if ($verifyOnLoad) {
-            $this->validate();
-        }
+    public function enableDebug(): self
+    {
+        $this->debug = true;
+        return $this;
     }
 
     /**
@@ -79,19 +89,26 @@ class Callback
      */
     public function validate(): bool
     {
+        $localSignature = $this->localSignature();
+        $incomingSignature = $this->incomingSignature();
+
         $validSignature = hash_equals(
-            $this->localSignature(),
-            $this->incomingSignature()
+            $localSignature,
+            $incomingSignature
         );
 
         if (!$validSignature) {
-            throw new SignatureException('Incoming signature does not match local signature');
+            $message = 'Incoming signature does not match local signature';
+            if ($this->debug) {
+                $message .= ': local(' . $localSignature . ') vs incoming(' . $incomingSignature . ')';
+            }
+            throw new SignatureException($message);
         }
 
         $validData = !is_null($this->data());
 
         if (!$validData) {
-            throw new UnexpectedValueException('Callback data is invalid');
+            throw new UnexpectedValueException('Callback data is invalid. Invalid or empty JSON');
         }
 
         return true;
