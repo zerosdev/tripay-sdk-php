@@ -70,4 +70,55 @@ class Helper
             }
         }
     }
+
+    /**
+     * Make unix timestamp
+     * Supported unit: SECOND, MINUTE, HOUR, DAY
+     * i.e: "1 DAY", "13 HOUR", etc
+     *
+     * @param string $value
+     * @return integer
+     */
+    public static function makeTimestamp(string $value): int
+    {
+        if (!preg_match('/^[0-9]+[\s][A-Z]+$/is', $value)) {
+            throw new InvalidArgumentException("Value must be in '[value] [unit]' format: i.e: 1 DAY");
+        }
+
+        [$value, $unit] = explode(' ', $value);
+
+        $value = (int) $value;
+
+        if ($value === 0) {
+            throw new InvalidArgumentException('Value must be greater than 0');
+        }
+
+        $unit = strtoupper($unit);
+
+        $supportedUnits = ['SECOND', 'MINUTE', 'HOUR', 'DAY'];
+
+        if (!in_array($unit, $supportedUnits)) {
+            throw new InvalidArgumentException('Unexpected unit. Supported: ' . implode(', ', $supportedUnits));
+        }
+
+        switch ($unit) {
+            case 'SECOND':
+                $timestamp = $value;
+                break;
+
+            case 'MINUTE':
+                $timestamp = $value * 60;
+                break;
+
+            case 'HOUR':
+                $timestamp = $value * 60 * 60;
+                break;
+
+            case 'DAY':
+                $timestamp = $value * 24 * 60 * 60;
+                break;
+        }
+
+        return (int) (time() + $timestamp);
+    }
 }
