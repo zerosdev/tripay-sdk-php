@@ -165,19 +165,40 @@ class Client
         $this->client = $this->createHttpClient($options);
     }
 
+    /**
+     * Create HTTP client
+     *
+     * @param array $options
+     * @return HttpClient
+     */
     private function createHttpClient(array $options): HttpClient
     {
         return new HttpClient($options);
     }
 
-    public function get($endpoint, array $headers = []): Response
+    /**
+     * Performe GET request
+     *
+     * @param string $endpoint
+     * @param array $headers
+     * @return Response
+     */
+    public function get(string $endpoint, array $headers = []): Response
     {
         return $this->client->get($endpoint, [
             'headers' => $headers,
         ]);
     }
 
-    public function post($endpoint, array $payloads, array $headers = []): Response
+    /**
+     * Performe POST request
+     *
+     * @param string $endpoint
+     * @param array $payloads
+     * @param array $headers
+     * @return Response
+     */
+    public function post(string $endpoint, array $payloads = [], array $headers = []): Response
     {
         return $this->client->post($endpoint, [
             'json' => $payloads,
@@ -185,6 +206,11 @@ class Client
         ]);
     }
 
+    /**
+     * Get debug data
+     *
+     * @return object
+     */
     public function debugs(): object
     {
         return (object) $this->debugs;
