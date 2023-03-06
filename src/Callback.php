@@ -82,9 +82,9 @@ class Callback
     /**
      * Get incoming signature
      *
-     * @return string|null
+     * @return string
      */
-    public function incomingSignature(): ?string
+    public function incomingSignature(): string
     {
         return (string) (isset($_SERVER['HTTP_X_CALLBACK_SIGNATURE']) ? $_SERVER['HTTP_X_CALLBACK_SIGNATURE'] : "");
     }
