@@ -57,7 +57,7 @@ $result = $transaction
         'customer_name' => 'Nama Pelanggan',
         'customer_email' => 'email@konsumen.id',
         'customer_phone' => '081234567890',
-        'expired_time' => Helper::makeTimestamp('6 HOUR'),
+        'expired_time' => Helper::makeTimestamp('6 HOUR'), // see Supported Time Units
     ]);
 
 echo $result->getBody()->getContents();
@@ -70,3 +70,10 @@ echo json_encode($debugs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 ```
 
 Please check the `/examples` for the other examples
+
+## Supported Time Units
+> :exclamation: All time units are in a singular noun
+- SECOND
+- MINUTE
+- HOUR
+- DAY
