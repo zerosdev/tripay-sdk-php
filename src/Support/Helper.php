@@ -19,8 +19,7 @@ class Helper
     {
         $merchantRef = isset($payloads['merchant_ref']) ? $payloads['merchant_ref'] : null;
         $amount = self::formatAmount($payloads['amount']);
-
-        $payloads['amount'] = self::formatAmount($payloads['amount']);
+        
         return hash_hmac('sha256', $client->merchantCode . $merchantRef . $amount, $client->privateKey);
     }
 
@@ -73,7 +72,7 @@ class Helper
 
     /**
      * Make unix timestamp
-     * Supported unit: SECOND, MINUTE, HOUR, DAY
+     * Supported time unit: SECOND, MINUTE, HOUR, DAY
      * i.e: "1 DAY", "13 HOUR", etc
      *
      * @param string $value
@@ -98,7 +97,7 @@ class Helper
         $supportedUnits = ['SECOND', 'MINUTE', 'HOUR', 'DAY'];
 
         if (!in_array($unit, $supportedUnits)) {
-            throw new InvalidArgumentException('Unexpected unit. Supported: ' . implode(', ', $supportedUnits));
+            throw new InvalidArgumentException('Unsupported time unit. Supported: ' . implode(', ', $supportedUnits));
         }
 
         switch ($unit) {
