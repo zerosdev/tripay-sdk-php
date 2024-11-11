@@ -1,5 +1,5 @@
 {
-    "name": "zerosdev/tripay-sdk-php",
+    "name": "aznidev/tripay-sdk-php",
     "description": "Unofficial TriPay.co.id Integration Kit for PHP",
     "type": "library",
     "require": {
