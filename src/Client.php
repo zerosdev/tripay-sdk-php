@@ -120,8 +120,8 @@ class Client
 
         $this->merchantCode = (string) is_array($args[0]) ? $args[0]['merchant_code'] : $args[0];
         $this->apiKey = (string) is_array($args[0]) ? $args[0]['api_key'] : $args[1];
-        $this->privateKey = (string) is_array($args[0]) ? $args[0]['private_key'] : $args[1];
-        $this->mode = (string) is_array($args[0]) ? $args[0]['mode'] : $args[2];
+        $this->privateKey = (string) is_array($args[0]) ? $args[0]['private_key'] : $args[2];
+        $this->mode = (string) is_array($args[0]) ? $args[0]['mode'] : $args[3];
 
         $baseUri = ($this->mode == Constant::MODE_DEVELOPMENT)
             ? Constant::URL_DEVELOPMENT
