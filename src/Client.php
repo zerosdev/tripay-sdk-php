@@ -150,7 +150,7 @@ class Client
             },
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->apiKey,
-                'User-Agent' => 'zerosdev/tripay-sdk-php',
+                'User-Agent' => 'github:zerosdev/tripay-sdk-php',
             ]
         ];
 
